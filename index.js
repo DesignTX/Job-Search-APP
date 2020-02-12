@@ -1,28 +1,13 @@
 const puppeteer = require('puppeteer')
 
-void (async () => {
-  try {
-    // creates a new browser instance
-    const browser = await puppeteer.launch()
+async function run() {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
 
-    // creates a page inside the browser
-    const page = await browser.newPage()
+  await page.goto('https://oce.op.gg/summoner/userName=Des%C4%B1gn');
+  await page.screenshot({ path: 'screenshots/opgg.png' });
 
-    // navigates to a website
-    await page.goto('https://scrapethissite.com/pages/forms/')
+  browser.close();
+}
 
-    // takes a screenshot and saves it to ./screenshots/page1.png
-    await page.screenshot({
-      path: './screenshots/page1.png'
-    })
-
-    // generates a pdf of the page and saves it to ./pdfs/page1.pdf
-    await page.pdf({ path: './pdfs/page1.pdf' })
-
-    // closes browser when finished
-    await browser.close()
-  } catch (error) {
-    console.log(error)
-  }
-
-})()
+run();
